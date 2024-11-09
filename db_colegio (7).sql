@@ -23,6 +23,17 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE TABLE `gestion_academica` (
+  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
+  `anio` int NOT NULL,
+  `fecha_inicio_registro` date NOT NULL,
+  `fecha_cierre_registro` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `gestion_academica` (`id`, `anio`, `fecha_inicio_registro`, `fecha_cierre_registro`) VALUES 
+(1, 2024, '2024-01-01', '2024-03-31'),
+(2, 2023, '2023-01-01', '2023-03-31'),
+(3, 2025, '2025-01-01', '2025-03-31');
 --
 -- Estructura de tabla para la tabla `apoderado`
 --
@@ -154,39 +165,40 @@ CREATE TABLE `estudiante` (
   `id` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `apellidos` varchar(40) NOT NULL,
-  `direccion` varchar(20) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
   `fechanac` date NOT NULL,
   `correo` varchar(50) NOT NULL,
   `telefono` varchar(50) NOT NULL,
   `fecharegistro` date NOT NULL,
   `fechaact` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_curso` int(11) NOT NULL,
-  `id_apoderado` int(11) NOT NULL
+  `id_apoderado` int(11) NOT NULL,
+  `id_gestion_academica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `estudiante`
 --
 
-INSERT INTO `estudiante` (`id`, `nombre`, `apellidos`, `direccion`, `fechanac`, `correo`, `telefono`, `fecharegistro`, `fechaact`, `id_curso`, `id_apoderado`) VALUES
-(33, 'Marcos', 'Saucedo', 'El plan 3000', '2014-06-15', 'marcos@gmail.com', '77676659', '2024-08-11', '2024-10-12 23:52:21', 13, 5),
-(34, 'Angel', 'Sanchez', 'El plan 3000', '2015-03-18', 'angel@gmail.com', '77656555', '2024-08-11', '2024-08-11 20:43:06', 14, 14),
-(39, 'Sebastian', 'Roca', 'la villa', '2015-05-06', 'sebastian@gmail.com', '7756566', '2024-08-11', '2024-08-11 22:52:39', 14, 18),
-(40, 'David', 'Zabala', 'El plan 3000', '2014-09-20', 'david@gmail.com', '765656577', '2024-08-11', '2024-10-12 22:32:56', 13, 19),
-(41, 'Thiago', 'Vaca', 'El plan 3000', '2016-08-04', 'thiago@gmail.com', '7677566', '2024-08-11', '2024-08-11 23:14:26', 8, 20),
-(44, 'Valeria ', ' Fernández', 'El plan 3000', '2016-06-11', 'valeria@gmail.com', '76764534', '2024-08-27', '2024-08-28 02:33:27', 14, 21),
-(45, 'Sofia', ' García', 'La Campana', '2015-05-06', 'sofia@gmail.com', '76754534', '2024-08-27', '2024-08-28 02:35:27', 13, 22),
-(46, 'Daniela', ' Rodríguez', 'la villa', '2014-10-12', 'daniela@gmail.com', '77565643', '2024-08-27', '2024-08-28 02:36:57', 13, 23),
-(47, 'juan', 'flores', 'El plan 3000', '2015-07-18', 'juan@gmail.com', '5656566', '2024-10-12', '2024-10-12 19:19:10', 14, 24),
-(48, 'sara', 'zabala', 'El plan 3000', '2016-07-30', 'sara@gmail.com', '45454644', '2024-10-12', '2024-10-12 21:10:41', 18, 25),
-(49, 'valentina', 'montaño', 'El plan 3000', '2015-02-08', 'valentinas@gmail.com', '4545455', '2024-10-12', '2024-10-12 22:08:31', 16, 26),
-(50, 'ronald', 'ornelas', 'El plan 3000', '2016-09-06', 'ronald@gmail.com', '2323233', '2024-10-12', '2024-10-12 22:45:28', 13, 28),
-(51, 'camila', 'daza', 'El plan 3000', '2015-06-14', 'camila@gmail.com', '545555', '2024-10-12', '2024-10-13 00:42:13', 16, 29),
-(54, 'Jessica', 'Cespedes', 'El plan 3000', '2015-04-03', 'jessica@gmail.com', '88766656', '2024-10-24', '2024-10-24 04:30:52', 16, 32),
-(55, 'Anthony', 'Paz', 'El plan 3000', '2015-10-07', 'anthony@gmail.com', '77565666', '2024-11-05', '2024-11-05 14:47:22', 13, 33),
-(56, 'Ricardo', 'Ramirez', 'El plan 3000', '2015-07-18', 'ricardo@gmail.com', '776765', '2024-11-06', '2024-11-06 13:57:34', 16, 34),
-(57, 'luis', 'Perez', 'El plan 3000', '2015-06-11', 'luis@gmail.com', '777675', '2024-11-06', '2024-11-08 15:16:21', 13, 35),
-(58, 'Verónica', 'Gutierrez', 'La Campana', '2016-09-16', 'veronica@gmail.com', '76754531', '2024-11-07', '2024-11-08 03:10:04', 16, 36);
+INSERT INTO `estudiante` (`id`, `nombre`, `apellidos`, `direccion`, `fechanac`, `correo`, `telefono`, `fecharegistro`, `fechaact`, `id_curso`, `id_apoderado`, `id_gestion_academica`) VALUES
+(33, 'Marcos', 'Saucedo', 'El plan 3000', '2014-06-15', 'marcos@gmail.com', '77676659', '2024-08-11', '2024-10-12 23:52:21', 13, 5, 1),
+(34, 'Angel', 'Sanchez', 'El plan 3000', '2015-03-18', 'angel@gmail.com', '77656555', '2024-08-11', '2024-08-11 20:43:06', 14, 14, 1),
+(39, 'Sebastian', 'Roca', 'la villa', '2015-05-06', 'sebastian@gmail.com', '7756566', '2024-08-11', '2024-08-11 22:52:39', 14, 18, 1),
+(40, 'David', 'Zabala', 'El plan 3000', '2014-09-20', 'david@gmail.com', '765656577', '2024-08-11', '2024-10-12 22:32:56', 13, 19, 1),
+(41, 'Thiago', 'Vaca', 'El plan 3000', '2016-08-04', 'thiago@gmail.com', '7677566', '2024-08-11', '2024-08-11 23:14:26', 8, 20, 1),
+(44, 'Valeria ', ' Fernández', 'El plan 3000', '2016-06-11', 'valeria@gmail.com', '76764534', '2024-08-27', '2024-08-28 02:33:27', 14, 21, 1),
+(45, 'Sofia', ' García', 'La Campana', '2015-05-06', 'sofia@gmail.com', '76754534', '2024-08-27', '2024-08-28 02:35:27', 13, 22, 1),
+(46, 'Daniela', ' Rodríguez', 'la villa', '2014-10-12', 'daniela@gmail.com', '77565643', '2024-08-27', '2024-08-28 02:36:57', 13, 23, 1),
+(47, 'juan', 'flores', 'El plan 3000', '2015-07-18', 'juan@gmail.com', '5656566', '2024-10-12', '2024-10-12 19:19:10', 14, 24, 1),
+(48, 'sara', 'zabala', 'El plan 3000', '2016-07-30', 'sara@gmail.com', '45454644', '2024-10-12', '2024-10-12 21:10:41', 18, 25, 1),
+(49, 'valentina', 'montaño', 'El plan 3000', '2015-02-08', 'valentinas@gmail.com', '4545455', '2024-10-12', '2024-10-12 22:08:31', 16, 26, 1),
+(50, 'ronald', 'ornelas', 'El plan 3000', '2016-09-06', 'ronald@gmail.com', '2323233', '2024-10-12', '2024-10-12 22:45:28', 13, 28, 1),
+(51, 'camila', 'daza', 'El plan 3000', '2015-06-14', 'camila@gmail.com', '545555', '2024-10-12', '2024-10-13 00:42:13', 16, 29, 1),
+(54, 'Jessica', 'Cespedes', 'El plan 3000', '2015-04-03', 'jessica@gmail.com', '88766656', '2024-10-24', '2024-10-24 04:30:52', 16, 32, 1),
+(55, 'Anthony', 'Paz', 'El plan 3000', '2015-10-07', 'anthony@gmail.com', '77565666', '2024-11-05', '2024-11-05 14:47:22', 13, 33, 1),
+(56, 'Ricardo', 'Ramirez', 'El plan 3000', '2015-07-18', 'ricardo@gmail.com', '776765', '2024-11-06', '2024-11-06 13:57:34', 16, 34, 1),
+(57, 'luis', 'Perez', 'El plan 3000', '2015-06-11', 'luis@gmail.com', '777675', '2024-11-06', '2024-11-08 15:16:21', 13, 35, 1),
+(58, 'Verónica', 'Gutierrez', 'La Campana', '2016-09-16', 'veronica@gmail.com', '76754531', '2024-11-07', '2024-11-08 03:10:04', 16, 36, 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +307,9 @@ ALTER TABLE `detalle_n_cuotas`
 ALTER TABLE `estudiante`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_curso` (`id_curso`),
-  ADD KEY `id_apoderado` (`id_apoderado`);
+  ADD KEY `id_apoderado` (`id_apoderado`),
+  ADD KEY `id_gestion_academica` (`id_gestion_academica`);
+
 
 --
 -- Indices de la tabla `pagos`
@@ -375,7 +389,8 @@ ALTER TABLE `apoderado`
 --
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `estudiante_ibfk_2` FOREIGN KEY (`id_apoderado`) REFERENCES `apoderado` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `estudiante_ibfk_2` FOREIGN KEY (`id_apoderado`) REFERENCES `apoderado` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `estudiante_ibfk_3` FOREIGN KEY (`id_gestion_academica`) REFERENCES `gestion_academica` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pagos`

@@ -12,8 +12,8 @@ class Estudiante
     static public function crear($datos)
     {
         $current_date = date('Y/m/d');
-        $stmt = Conexion::conectar()->prepare("INSERT INTO estudiante (nombre, apellidos, direccion, fechanac, correo, telefono, fecharegistro, id_curso, id_apoderado) 
-                                                VALUES (:nombre, :apellidos, :direccion, :fechanac, :correo, :telefono, :fecharegistro, :id_curso, :id_apoderado)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO estudiante (nombre, apellidos, direccion, fechanac, correo, telefono, fecharegistro, id_curso, id_apoderado, id_gestion_academica) 
+                                                VALUES (:nombre, :apellidos, :direccion, :fechanac, :correo, :telefono, :fecharegistro, :id_curso, :id_apoderado, :id_gestion_academica)");
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
@@ -23,11 +23,13 @@ class Estudiante
         $stmt->bindParam(":fecharegistro", $current_date, PDO::PARAM_STR);
         $stmt->bindParam(":id_curso", $datos["id_curso"], PDO::PARAM_INT);
         $stmt->bindParam(":id_apoderado", $datos["id_apoderado"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_gestion_academica", $datos["id_gestion_academica"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return "ok";
         } else {
-            return "error";
+            $error = $stmt->errorInfo();
+            return $error[2];
         }
     }
 
@@ -39,13 +41,12 @@ class Estudiante
     {
 
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, apellidos = :apellidos, direccion = :direccion, 
-                                                fechanac = :fechanac, fechaact = :fechaact ,correo = :correo, telefono = :telefono, id_curso = :id_curso, id_apoderado = :id_apoderado 
+                                                fechanac = :fechanac, fechaact = NOW(), correo = :correo, telefono = :telefono, id_curso = :id_curso, id_apoderado = :id_apoderado
                                                 WHERE id = :id");
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
         $stmt->bindParam(":fechanac", $datos["fechanac"], PDO::PARAM_STR);
-        $stmt->bindParam(":fechaact", $datos["fechaact"], PDO::PARAM_STR);
         $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
         $stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
         $stmt->bindParam(":id_curso", $datos["id_curso"], PDO::PARAM_INT);
@@ -55,6 +56,7 @@ class Estudiante
         if ($stmt->execute()) {
             return "ok";
         } else {
+            $error = $stmt->errorInfo();
             return "error";
         }
     }
