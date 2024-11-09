@@ -27,7 +27,6 @@ $(".tablas").on("click", ".btnEditarUsuario", function () {
 			console.error("Respuesta del servidor: ", jqXHR.responseText);
 		}
 	});
-
 })
 
 /*=============================================
@@ -63,7 +62,6 @@ $(".tablas").on("click", ".btnActivar", function () {
 				});
 			}
 		}
-
 	})
 
 	if (estadoUsuario == 0) {

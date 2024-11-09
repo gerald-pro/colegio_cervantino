@@ -200,7 +200,7 @@
                                     <?php
                                     $cursos = Curso::listar();
                                     foreach ($cursos as $key => $value) {
-                                        echo '<option value="' . $value["id"] . '">' . $value["curso"] . '</option>';
+                                        echo '<option value="' . $value["id"] . '">' . $value["curso"] . $value["paralelo"] . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -369,7 +369,7 @@
                                     <?php
                                     $cursos = Curso::listar();
                                     foreach ($cursos as $key => $value) {
-                                        echo '<option value="' . $value["id"] . '">' . $value["curso"] . '</option>';
+                                        echo '<option value="' . $value["id"] . '">' . $value["curso"] . $value["paralelo"] . '</option>';
                                     }
                                     ?>
                                 </select>

@@ -154,7 +154,7 @@ class ReporteControlador
         $pdf->MultiCell(
             90,
             '',
-            "Lugar y fecha: Santa Cruz, ". $fecha->format('d-m-Y H:i:s') ." \n",
+            "Lugar y fecha: Santa Cruz, " . $fecha->format('d-m-Y H:i:s') . " \n",
             0,
             'L',
             0,
@@ -202,7 +202,7 @@ class ReporteControlador
         $pagos = Pago::listarPorPeriodo($fechaInicio, $fechaFin); // Método en el modelo Pago
 
         $pdf = new TCPDF();
-        
+
 
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Nombre de la Empresa');
@@ -257,7 +257,7 @@ class ReporteControlador
         $pdf->MultiCell(
             90,
             '',
-            "Lugar y fecha: Santa Cruz, ". $fecha->format('d-m-Y H:i:s') ." \n",
+            "Lugar y fecha: Santa Cruz, " . $fecha->format('d-m-Y H:i:s') . " \n",
             0,
             'L',
             0,
@@ -279,10 +279,12 @@ class ReporteControlador
         $pdf->Cell(25, 8, 'Monto (Bs)', 1, '', "C");
         $pdf->Ln();
 
+        $totalPagos = 0;
+
         if ($pagos) {
             foreach ($pagos as $pago) {
                 $fechaPago = date("d/m/Y H:i", strtotime($pago['fecha']));
-                $estudiante = Estudiante::buscarPorId( $pago['id_estudiante']);
+                $estudiante = Estudiante::buscarPorId($pago['id_estudiante']);
                 $apoderado = Apoderado::buscarPorId($pago['id_apoderado']);
 
                 $pdf->Cell(40, 8, $fechaPago, 1);
@@ -290,9 +292,16 @@ class ReporteControlador
                 $pdf->Cell(50, 8, $apoderado['nombre'] . ' ' . $apoderado['apellido'], 1);
                 $pdf->Cell(25, 8, $pago['monto'], 1, '', 'R');
                 $pdf->Ln();
+
+                $totalPagos += $pago['monto'];
             }
+
+            $pdf->SetFont('helvetica', 'B', 11);
+            $pdf->Cell(140, 8, 'Total (Bs)', 1, '', 'R');
+            $pdf->Cell(25, 8, $totalPagos , 1, '', 'R');
+            $pdf->Ln();
         } else {
-            $pdf->Cell(175, 8, 'No se encontraron estudiantes para este apoderado', 0, 0, "C");
+            $pdf->Cell(175, 8, 'No se registraron pagos durante este periodo', 0, 0, "C");
         }
 
         return $pdf->Output('', 'S');

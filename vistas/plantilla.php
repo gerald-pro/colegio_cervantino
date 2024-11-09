@@ -130,6 +130,7 @@ if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") {
 
     if (
       $_GET["rutas"] == "inicio" ||
+      $_GET["rutas"] == "gestiones" ||
       $_GET["rutas"] == "apoderados" ||
       $_GET["rutas"] == "cursos" ||
       $_GET["rutas"] == "usuarios" ||
@@ -166,4 +167,5 @@ if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") {
 <script src="vistas/js/cursos.js"></script>
 <script src="vistas/js/detalleCuotas.js"></script>
 <script src="vistas/js/reportes.js"></script>
+<script src="vistas/js/gestionAcademica.js"></script>
 </html>

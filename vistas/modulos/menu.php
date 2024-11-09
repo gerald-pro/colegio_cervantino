@@ -86,6 +86,16 @@
         </li>
 
         <li class="nav-item">
+          <a href="gestiones" class="nav-link <?php if ($_GET["rutas"] == "gestiones") echo 'active' ?>">
+            <i class="nav-icon fa fa-calendar" style="color: #00008B;"></i>
+            <p>
+              Gestiones
+              <span class="right badge badge-danger"></span>
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a href="apoderados" class="nav-link <?php if ($_GET["rutas"] == "apoderados") echo 'active' ?>">
             <i class="nav-icon fas fa-child" style="color: #00008B;"></i>
             <p>
